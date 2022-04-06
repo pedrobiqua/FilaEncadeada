@@ -36,11 +36,53 @@ public class FilaEncadeada {
         
     }
 
-    public int vazio(){
+    public void insereOrdenado(int elemento){
+        if(this.vazio() || (elemento <= this.primeiro.info)) {
+            this.inserePrimeiro(elemento);}
+        else if (elemento >= this.ultimo.info)
+            this.insereUltimo(elemento);
+        else{
+            No novo = new No(elemento);
+            No p = this.primeiro;
+            No q = null;
+
+            while(elemento >= p.info){
+                q = p;
+                p = p.proximo;
+            }
+
+            novo.proximo = p;
+            q.proximo = novo;
+        }
+    }
+
+    public No removeValor(int elemento) {
+        //Essa função está errada.
+        if (vazio()) {
+            System.out.println("A fila está vazia");
+            No p = new No(0);
+            return p;
+        }else{
+            No novo = new No(elemento);
+            No p = this.primeiro;
+            No q = null;
+
+            while(p.info < elemento){
+                q = p;
+                p = p.proximo;
+            }
+
+            novo.proximo = p;
+            q.proximo = novo;
+            return novo;
+        }
+    }
+
+    public boolean vazio(){
         if(primeiro == null && ultimo == null){
             System.out.println("A fila está vazia");
-            return 1;
+            return true;
         }
-        return 0;
+        return false;
     }
 }
